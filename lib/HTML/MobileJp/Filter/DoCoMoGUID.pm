@@ -1,0 +1,41 @@
+package HTML::MobileJp::Filter::DoCoMoGUID;
+use strict;
+use warnings;
+use base 'HTML::MobileJp::Filter::Base';
+
+use HTML::StickyQuery::DoCoMoGUID;
+
+sub filter {
+    my ($self, $html) = @_;
+    
+    unless ($self->mobile_agent->is_docomo) {
+        return;
+    }
+    
+    HTML::StickyQuery::DoCoMoGUID->new->sticky( scalarref => \$html );
+}
+
+1;
+__END__
+
+=encoding utf-8
+
+=head1 NAME
+
+HTML::MobileJp::Filter::EntityReference - DoCoMo の場合 guid=ON を付ける
+
+=head1 SYNOPSIS
+
+  - module: DoCoMoGUID
+
+=head1 CONFIG AND DEFAULT VALUES
+
+=head1 SEE ALSO
+
+L<HTML::StickyQuery::DoCoMoGUID>
+
+=head1 AUTHOR
+
+Naoki Tomita E<lt>tomita@cpan.orgE<gt>
+
+=cut
