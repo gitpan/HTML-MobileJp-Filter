@@ -1,8 +1,9 @@
 --- 
-abstract: Glue modules for fighting Japanese mobile web
+abstract: Glue of modules for fighting with Japanese mobile web
 author: 
   - Naoki Tomita <tomita@cpan.org>
 build_requires: 
+  HTTP::MobileAgent: 0
   Test::Base: 0
   Test::More: 0
 distribution_type: module
@@ -17,12 +18,16 @@ no_index:
     - inc
     - t
 requires: 
+  Class::MOP: 0
   Class::Trigger: 0
   Encode: 0
   Encode::JP::Mobile: 0
+  Encode::JP::Mobile::Charnames: 0
   HTML::DoCoMoCSS: 0
   HTML::Entities::ConvertPictogramMobileJp: 0
   HTML::StickyQuery::DoCoMoGUID: 0
   HTTP::MobileAgent: 0
-  UNIVERSAL::require: 0
-version: 0.01
+  Moose: 0
+  Moose::Role: 0
+  YAML: 0
+version: 0.01_01

@@ -1,26 +1,28 @@
 package HTML::MobileJp::Filter::DoCoMoCSS;
-use strict;
-use warnings;
-use base 'HTML::MobileJp::Filter::Base';
+use Moose;
 
-use Encode;
-use HTML::DoCoMoCSS;
+with 'HTML::MobileJp::Filter::Role';
 
-sub config_default {
-    base_dir                => '',
-    xml_declaration_replace => 1,
-    xml_declaration         => <<'END'
+has '+config' => (
+    default => sub {{
+        base_dir                => '',
+        xml_declaration_replace => 1,
+        xml_declaration         => <<'END'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//i-mode group (ja)//DTD XHTML i-XHTML(Locale/Ver.=ja/1.0) 1.0//EN" "i-xhtml_4ja_10.dtd">
 END
     ,
-}
+    }},
+);
+
+use Encode;
+use HTML::DoCoMoCSS;
 
 sub filter {
     my ($self, $html) = @_;
     
     unless ($self->mobile_agent->is_docomo) {
-        return;
+        return $html;
     }
 
     if ($self->config->{xml_declaration_replace}) {
@@ -57,7 +59,11 @@ HTML::MobileJp::Filter::DoCoMoCSS - DoCoMo の場合 <link> の CSS をインラ
   <!DOCTYPE html PUBLIC "-//i-mode group (ja)//DTD XHTML i-XHTML(Locale/Ver.=ja/1.0) 1.0//EN" "i-xhtml_4ja_10.dtd">
   END
 
-XML 宣言や DTD がないと文字が全部実体参照になったりうまく parse できないので。
+XML 宣言や DTD がないと文字が全部実体参照になったりうまく parse できないので
+ヘッダを付け替えることで HTML::DoCoMoCSS の中の XML::libXML に指示をしています。
+
+TODO のHTML::MobileJp::Filter 側で XML オブジェクトを持つようになった際に
+もっと良い方法で指定できるようになる予定です。
 
 =head1 SEE ALSO
 

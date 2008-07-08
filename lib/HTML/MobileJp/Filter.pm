@@ -1,21 +1,41 @@
 package HTML::MobileJp::Filter;
-use strict;
-use warnings;
-our $VERSION = '0.01';
+use Moose;
+our $VERSION = '0.01_01';
 
-use Carp;
 use Class::Trigger;
-use UNIVERSAL::require;
+use Class::MOP;
+
+has filters => (
+    is      => 'rw',
+    isa     => 'ArrayRef',
+    default => sub { [] },
+);
+
+has stash => (
+    is      => 'rw',
+    isa     => 'HashRef',
+    default => sub { {} },
+);
 
 sub new {
-    my $class  = shift;
-    my $config = ref $_[0] eq 'HASH' ? shift : { @_ };
-    my $self   = bless {}, $class;
+    my $self = shift->SUPER::new(@_);
     
-    for my $filter (@{ $config->{filters} || [] }) {
-        my $module = __PACKAGE__ .'::'. $filter->{module};
-        $module->require or croak $@;
-        $module->new($self, $filter);
+    for my $config (@{ $self->filters }) {
+        my $filter = do {
+            my $module = __PACKAGE__ ."::$config->{module}";
+            Class::MOP::load_class($module);
+            $module->new($config);
+        };
+    
+        $self->add_trigger(filter_process => sub {
+            my $context = shift;
+            
+            $filter->mobile_agent($context->stash->{mobile_agent});
+            
+            my $ret = $filter->filter($context->stash->{html});
+            
+            $context->stash->{html} = $ret if defined $ret;
+        });
     }
     
     $self;
@@ -24,11 +44,12 @@ sub new {
 sub filter {
     my ($self, %option) = @_;
     
-    $self->{$_} = $option{$_} for keys %option;
+    $self->stash({});
+    $self->stash->{$_} = $option{$_} for keys %option;
     
     $self->call_trigger('filter_process');
     
-    $self->{html};
+    $self->stash->{html};
 }
 
 1;
@@ -38,7 +59,7 @@ __END__
 
 =head1 NAME
 
-HTML::MobileJp::Filter - Glue modules for fighting Japanese mobile web
+HTML::MobileJp::Filter - Glue of modules for fighting with Japanese mobile web
 
 =head1 SYNOPSIS
 
@@ -71,7 +92,7 @@ HTML::MobileJp::Filter - Glue modules for fighting Japanese mobile web
 HTML::MobileJp::Filter is 偉大な先人たちがつくってくれた携帯サイトに役立つ
 CPAN モジュールたちをつなげる薄いフレームワークです。
 
-B<CAUTION:> This module is still alpha, its possible the API will change.
+B<CAUTION: This module is still alpha, its possible the API will change!>
 
 =head1 METHODS
 
@@ -100,5 +121,6 @@ it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 
+L<http://search.cpan.org/search?mode=module&query=HTML::MobileJp::Filter::>
 
 =cut

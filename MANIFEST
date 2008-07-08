@@ -1,4 +1,5 @@
 Changes
+inc/HTTP/MobileAgent.pm
 inc/Module/Install.pm
 inc/Module/Install/Base.pm
 inc/Module/Install/Can.pm
@@ -16,11 +17,13 @@ inc/Test/Builder.pm
 inc/Test/Builder/Module.pm
 inc/Test/More.pm
 lib/HTML/MobileJp/Filter.pm
-lib/HTML/MobileJp/Filter/Base.pm
 lib/HTML/MobileJp/Filter/DoCoMoCSS.pm
 lib/HTML/MobileJp/Filter/DoCoMoGUID.pm
+lib/HTML/MobileJp/Filter/Dummy.pm
 lib/HTML/MobileJp/Filter/EntityReference.pm
-lib/HTML/MobileJp/Filter/FallbackImage.pm
+lib/HTML/MobileJp/Filter/PictogramFallback.pm
+lib/HTML/MobileJp/Filter/PictogramFallback/TypeCast.pm
+lib/HTML/MobileJp/Filter/Role.pm
 Makefile.PL
 MANIFEST			This list of files
 META.yml
@@ -28,3 +31,6 @@ README
 t/00_compile.t
 t/01_docomo.t
 t/01_docomo/foo.css
+t/02_dummy.t
+t/03_pc.t
+TODO

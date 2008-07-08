@@ -1,7 +1,7 @@
 package HTML::MobileJp::Filter::DoCoMoGUID;
-use strict;
-use warnings;
-use base 'HTML::MobileJp::Filter::Base';
+use Moose;
+
+with 'HTML::MobileJp::Filter::Role';
 
 use HTML::StickyQuery::DoCoMoGUID;
 
@@ -9,7 +9,7 @@ sub filter {
     my ($self, $html) = @_;
     
     unless ($self->mobile_agent->is_docomo) {
-        return;
+        return $html;
     }
     
     HTML::StickyQuery::DoCoMoGUID->new->sticky( scalarref => \$html );
@@ -22,7 +22,7 @@ __END__
 
 =head1 NAME
 
-HTML::MobileJp::Filter::EntityReference - DoCoMo の場合 guid=ON を付ける
+HTML::MobileJp::Filter::DoCoMoGUID - DoCoMo の場合 guid=ON を付ける
 
 =head1 SYNOPSIS
 

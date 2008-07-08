@@ -1,4 +1,11 @@
 Revision history for Perl extension HTML::MobileJp::Filter
 
+0.01_01
+        - fix pod typo
+        - moose
+        - s/FallbackImage/PictogramFallback/
+        - add Filter::PictogramFallback::TypeCast
+        - add Filter::EntityReference force option
+
 0.01  Fri Jun 27 12:43:27 JST 2008
         - original version
