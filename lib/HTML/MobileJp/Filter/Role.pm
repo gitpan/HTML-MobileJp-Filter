@@ -1,4 +1,5 @@
 package HTML::MobileJp::Filter::Role;
+use strict;
 use Moose::Role;
 
 has config => (

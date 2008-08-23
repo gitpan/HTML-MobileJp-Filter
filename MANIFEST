@@ -33,4 +33,5 @@ t/01_docomo.t
 t/01_docomo/foo.css
 t/02_dummy.t
 t/03_pc.t
+t/04_fullname_filter.t
 TODO

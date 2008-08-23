@@ -1,5 +1,8 @@
 Revision history for Perl extension HTML::MobileJp::Filter
 
+0.01_02
+        - support +MyApp::Filter namespace. thanks Ittetsu Miyazaki.
+
 0.01_01
         - fix pod typo
         - moose

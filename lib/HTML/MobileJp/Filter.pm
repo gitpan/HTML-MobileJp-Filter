@@ -1,6 +1,6 @@
 package HTML::MobileJp::Filter;
 use Moose;
-our $VERSION = '0.01_01';
+our $VERSION = '0.01_02';
 
 use Class::Trigger;
 use Class::MOP;
@@ -22,7 +22,7 @@ sub new {
     
     for my $config (@{ $self->filters }) {
         my $filter = do {
-            my $module = __PACKAGE__ ."::$config->{module}";
+            my $module = $config->{module} =~ m{^\+(.*)$} ? $1 : __PACKAGE__ ."::$config->{module}";
             Class::MOP::load_class($module);
             $module->new($config);
         };
@@ -52,6 +52,8 @@ sub filter {
     $self->stash->{html};
 }
 
+no Moose;
+__PACKAGE__->meta->make_immutable;
 1;
 __END__
 

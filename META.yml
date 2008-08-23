@@ -20,14 +20,13 @@ no_index:
 requires: 
   Class::MOP: 0
   Class::Trigger: 0
-  Encode: 0
-  Encode::JP::Mobile: 0
+  Encode: 2.25
+  Encode::JP::Mobile: 0.25
   Encode::JP::Mobile::Charnames: 0
   HTML::DoCoMoCSS: 0
   HTML::Entities::ConvertPictogramMobileJp: 0
   HTML::StickyQuery::DoCoMoGUID: 0
-  HTTP::MobileAgent: 0
-  Moose: 0
+  Moose: 0.55
   Moose::Role: 0
   YAML: 0
-version: 0.01_01
+version: 0.01_02
