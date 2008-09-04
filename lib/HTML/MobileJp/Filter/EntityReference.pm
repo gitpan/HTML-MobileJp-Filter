@@ -13,24 +13,24 @@ use Encode::JP::Mobile ':props';
 use HTML::Entities::ConvertPictogramMobileJp;
 
 sub filter {
-    my ($self, $html) = @_;
+    my ($self, $content) = @_;
     
     if ($self->mobile_agent->is_non_mobile) {
         if ($self->config->{force}) {
-            $html =~ s{(&\#x([A-Z0-9]+);)}{
+            $content =~ s{(&\#x([A-Z0-9]+);)}{
                 my $code = $1;
                 my $char = chr hex $2;
                 $char =~ /\p{InMobileJPPictograms}/ ? $char : $code;
             }ge;
         }
     } else {
-        $html = convert_pictogram_entities(
+        $content = convert_pictogram_entities(
             mobile_agent => $self->mobile_agent,
-            html         => $html,
+            html         => $content->stringfy,
         );
     }
     
-    $html;
+    $content;
 }
 
 1;

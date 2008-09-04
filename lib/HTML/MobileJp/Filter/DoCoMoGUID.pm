@@ -6,13 +6,13 @@ with 'HTML::MobileJp::Filter::Role';
 use HTML::StickyQuery::DoCoMoGUID;
 
 sub filter {
-    my ($self, $html) = @_;
+    my ($self, $content) = @_;
     
     unless ($self->mobile_agent->is_docomo) {
-        return $html;
+        return;
     }
     
-    HTML::StickyQuery::DoCoMoGUID->new->sticky( scalarref => \$html );
+    HTML::StickyQuery::DoCoMoGUID->new->sticky( scalarref => \$content->stringfy );
 }
 
 1;

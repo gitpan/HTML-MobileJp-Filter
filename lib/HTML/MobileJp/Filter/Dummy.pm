@@ -11,11 +11,11 @@ has '+config' => (
 );
 
 sub filter {
-    my ($self, $html) = @_;
+    my ($self, $content) = @_;
     
     return join('',
         $self->config->{prefix},
-        $html,
+        $content->stringfy,
         $self->config->{suffix},
     );
 }

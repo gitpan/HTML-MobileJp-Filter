@@ -32,7 +32,7 @@ sub filter {
     my ($self, $html) = @_;
     
     unless ($self->mobile_agent->is_non_mobile) {
-        return $html;
+        return;
     }
     
     $html = Encode::encode('x-utf8-docomo', $html, sub { encode_utf8 chr shift} );

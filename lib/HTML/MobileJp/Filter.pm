@@ -1,9 +1,6 @@
 package HTML::MobileJp::Filter;
 use Moose;
-our $VERSION = '0.01_02';
-
-use Class::Trigger;
-use Class::MOP;
+our $VERSION = '0.01_03';
 
 has filters => (
     is      => 'rw',
@@ -17,6 +14,13 @@ has stash => (
     default => sub { {} },
 );
 
+no Moose;
+__PACKAGE__->meta->make_immutable;
+
+use Class::Trigger;
+use Class::MOP;
+use HTML::MobileJp::Filter::Content;
+
 sub new {
     my $self = shift->SUPER::new(@_);
     
@@ -29,12 +33,12 @@ sub new {
     
         $self->add_trigger(filter_process => sub {
             my $context = shift;
-            
             $filter->mobile_agent($context->stash->{mobile_agent});
             
-            my $ret = $filter->filter($context->stash->{html});
-            
-            $context->stash->{html} = $ret if defined $ret;
+            my $ret = $filter->filter($context->stash->{content});
+            if (defined $ret) {
+                $context->stash->{content}->update($ret);
+            }
         });
     }
     
@@ -42,18 +46,18 @@ sub new {
 }
 
 sub filter {
-    my ($self, %option) = @_;
+    my ($self, %param) = @_;
     
-    $self->stash({});
-    $self->stash->{$_} = $option{$_} for keys %option;
+    $self->stash({
+        mobile_agent => $param{mobile_agent},
+        content      => HTML::MobileJp::Filter::Content->new(html => $param{html}),
+    });
     
     $self->call_trigger('filter_process');
     
-    $self->stash->{html};
+    $self->stash->{content}->as_html;
 }
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
 1;
 __END__
 
@@ -81,6 +85,7 @@ HTML::MobileJp::Filter - Glue of modules for fighting with Japanese mobile web
         template: '<img src="%s.gif" />'
         params:
           - unicode_hex
+    - module: +MyApp::Filter::Foo
   ...
   );
 
@@ -106,6 +111,10 @@ B<CAUTION: This module is still alpha, its possible the API will change!>
 
 =back
 
+=head1 SEE ALSO
+
+L<http://search.cpan.org/search?mode=module&query=HTML::MobileJp::Filter::>
+
 =head1 AUTHOR
 
 Naoki Tomita E<lt>tomita@cpan.orgE<gt>
@@ -120,9 +129,5 @@ L<http://coderepos.org/share/browser/lang/perl/HTML-MobileJp-Filter>
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
-
-=head1 SEE ALSO
-
-L<http://search.cpan.org/search?mode=module&query=HTML::MobileJp::Filter::>
 
 =cut

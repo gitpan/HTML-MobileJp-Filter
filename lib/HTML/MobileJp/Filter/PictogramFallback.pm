@@ -14,13 +14,13 @@ use Encode::JP::Mobile ':props';
 use Encode::JP::Mobile::Charnames;
 
 sub filter {
-    my ($self, $html) = @_;
+    my ($self, $content) = @_;
     
     unless ($self->mobile_agent->is_non_mobile) {
-        return $html;
+        return;
     }
     
-    $html =~ s{(\p{InMobileJPPictograms})}{
+    $content =~ s{(\p{InMobileJPPictograms})}{
         my $char = Encode::JP::Mobile::Character->from_unicode(ord $1);
         my @param;
         for my $param (@{ $self->config->{params} }) {
@@ -33,7 +33,7 @@ sub filter {
         sprintf $self->config->{template}, @param;
     }ge;
     
-    $html;
+    $content;
 }
 
 my %htmlspecialchars = ( '&' => '&amp;', '<' => '&lt;', '>' => '&gt;', '"' => '&quot;' );

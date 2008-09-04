@@ -1,5 +1,8 @@
 Revision history for Perl extension HTML::MobileJp::Filter
 
+0.01_03
+        - changed $html into HTML::MobileJp::Filter::Content object
+
 0.01_02
         - support +MyApp::Filter namespace. thanks Ittetsu Miyazaki.
 

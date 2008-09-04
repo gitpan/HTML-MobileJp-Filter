@@ -19,20 +19,20 @@ use Encode;
 use HTML::DoCoMoCSS;
 
 sub filter {
-    my ($self, $html) = @_;
+    my ($self, $content) = @_;
     
     unless ($self->mobile_agent->is_docomo) {
-        return $html;
+        return;
     }
 
     if ($self->config->{xml_declaration_replace}) {
         # instead of $doc->setEncoding etc..
-        $html =~ s/.*(<html)/$self->config->{xml_declaration} . "\n$1"/msei;
+        $content =~ s/.*(<html)/$self->config->{xml_declaration} . "\n$1"/msei;
     }
      
     my $inliner = HTML::DoCoMoCSS->new(base_dir => $self->config->{base_dir});
-    $html = $inliner->apply($html);
-    $html = Encode::decode_utf8($html);
+    $content = $inliner->apply($content);
+    $content = Encode::decode_utf8($content);
 }
 
 1;

@@ -17,6 +17,7 @@ inc/Test/Builder.pm
 inc/Test/Builder/Module.pm
 inc/Test/More.pm
 lib/HTML/MobileJp/Filter.pm
+lib/HTML/MobileJp/Filter/Content.pm
 lib/HTML/MobileJp/Filter/DoCoMoCSS.pm
 lib/HTML/MobileJp/Filter/DoCoMoGUID.pm
 lib/HTML/MobileJp/Filter/Dummy.pm
@@ -34,4 +35,5 @@ t/01_docomo/foo.css
 t/02_dummy.t
 t/03_pc.t
 t/04_fullname_filter.t
+t/05_content_object.t
 TODO

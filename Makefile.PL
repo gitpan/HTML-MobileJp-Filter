@@ -7,6 +7,7 @@ requires 'Moose' => 0.55;
 requires 'Moose::Role';
 requires 'Class::Trigger';
 requires 'Class::MOP';
+requires 'XML::LibXML';
 
 requires 'Encode' => 2.25;
 requires 'Encode::JP::Mobile' => 0.25;
@@ -16,9 +17,9 @@ requires 'HTML::StickyQuery::DoCoMoGUID';
 requires 'HTML::Entities::ConvertPictogramMobileJp';
 requires 'YAML';
 
-build_requires 'Test::More';
-build_requires 'Test::Base';
-build_requires 'HTTP::MobileAgent';
+test_requires 'Test::More';
+test_requires 'Test::Base';
+test_requires 'HTTP::MobileAgent';
 
 use_test_base;
 auto_include;
