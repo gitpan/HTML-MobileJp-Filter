@@ -1,6 +1,7 @@
 Changes
-inc/HTTP/MobileAgent.pm
 inc/Module/Install.pm
+inc/Module/Install/Any/Moose.pm
+inc/Module/Install/AuthorTests.pm
 inc/Module/Install/Base.pm
 inc/Module/Install/Can.pm
 inc/Module/Install/Fetch.pm
@@ -37,3 +38,7 @@ t/03_pc.t
 t/04_fullname_filter.t
 t/05_content_object.t
 TODO
+xt/97_podspell.t
+xt/98_perlcritic.t
+xt/99_pod.t
+xt/perlcriticrc

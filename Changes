@@ -1,5 +1,8 @@
 Revision history for Perl extension HTML::MobileJp::Filter
 
+0.02
+        - Any-Moosify. thanks Danjou(lopnor)
+
 0.01_03
         - changed $html into HTML::MobileJp::Filter::Content object
 

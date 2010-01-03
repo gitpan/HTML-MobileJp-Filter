@@ -1,5 +1,5 @@
 package HTML::MobileJp::Filter::PictogramFallback::TypeCast;
-use Moose;
+use Any::Moose;
 
 with 'HTML::MobileJp::Filter::Role';
 
@@ -52,6 +52,8 @@ sub filter {
     
     $html;
 }
+
+__PACKAGE__->meta->make_immutable;
 
 1;
 __END__

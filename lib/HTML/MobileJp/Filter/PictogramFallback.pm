@@ -1,5 +1,5 @@
 package HTML::MobileJp::Filter::PictogramFallback;
-use Moose;
+use Any::Moose;
 
 with 'HTML::MobileJp::Filter::Role';
 
@@ -52,6 +52,8 @@ sub fallback_name_htmlescape {
     $fallback =~ s/([$htmlspecialchars])/$htmlspecialchars{$1}/ego;
     $fallback;
 }
+
+__PACKAGE__->meta->make_immutable;
 
 1;
 __END__

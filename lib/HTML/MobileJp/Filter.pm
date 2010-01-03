@@ -1,10 +1,12 @@
 package HTML::MobileJp::Filter;
-use Moose;
-our $VERSION = '0.01_03';
+use Any::Moose;
+our $VERSION = '0.02';
 
 has filters => (
     is      => 'rw',
     isa     => 'ArrayRef',
+    required => 1,
+    auto_deref => 1,
     default => sub { [] },
 );
 
@@ -14,20 +16,17 @@ has stash => (
     default => sub { {} },
 );
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
+no Any::Moose;
 
 use Class::Trigger;
-use Class::MOP;
 use HTML::MobileJp::Filter::Content;
 
-sub new {
-    my $self = shift->SUPER::new(@_);
-    
+sub BUILD {
+    my ($self) = @_;
     for my $config (@{ $self->filters }) {
         my $filter = do {
             my $module = $config->{module} =~ m{^\+(.*)$} ? $1 : __PACKAGE__ ."::$config->{module}";
-            Class::MOP::load_class($module);
+            Any::Moose::load_class($module);
             $module->new($config);
         };
     
@@ -41,8 +40,6 @@ sub new {
             }
         });
     }
-    
-    $self;
 }
 
 sub filter {
@@ -57,6 +54,8 @@ sub filter {
     
     $self->stash->{content}->as_html;
 }
+
+__PACKAGE__->meta->make_immutable;
 
 1;
 __END__

@@ -1,5 +1,5 @@
 package HTML::MobileJp::Filter::EntityReference;
-use Moose;
+use Any::Moose;
 
 with 'HTML::MobileJp::Filter::Role';
 
@@ -32,6 +32,8 @@ sub filter {
     
     $content;
 }
+
+__PACKAGE__->meta->make_immutable;
 
 1;
 __END__

@@ -1,5 +1,5 @@
 package HTML::MobileJp::Filter::Content;
-use Moose;
+use Any::Moose;
 
 has _current => (
     is      => 'rw',
@@ -55,4 +55,5 @@ sub as_xml {
     $self->xml;
 }
 
+__PACKAGE__->meta->make_immutable;
 1;

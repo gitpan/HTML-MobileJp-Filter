@@ -1,6 +1,5 @@
 package HTML::MobileJp::Filter::Role;
-use strict;
-use Moose::Role;
+use Any::Moose '::Role';
 
 has config => (
     is      => 'rw',

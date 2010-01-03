@@ -1,5 +1,5 @@
 package HTML::MobileJp::Filter::DoCoMoGUID;
-use Moose;
+use Any::Moose;
 
 with 'HTML::MobileJp::Filter::Role';
 

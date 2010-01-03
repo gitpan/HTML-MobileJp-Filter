@@ -1,5 +1,5 @@
 package HTML::MobileJp::Filter::DoCoMoCSS;
-use Moose;
+use Any::Moose;
 
 with 'HTML::MobileJp::Filter::Role';
 

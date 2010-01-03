@@ -3,11 +3,13 @@ abstract: 'Glue of modules for fighting with Japanese mobile web'
 author:
   - 'Naoki Tomita <tomita@cpan.org>'
 build_requires:
-  HTTP::MobileAgent: 0
+  ExtUtils::MakeMaker: 6.42
   Test::Base: 0
   Test::More: 0
+configure_requires:
+  ExtUtils::MakeMaker: 6.42
 distribution_type: module
-generated_by: 'Module::Install version 0.77'
+generated_by: 'Module::Install version 0.91'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -17,8 +19,11 @@ no_index:
   directory:
     - inc
     - t
+    - xt
+recommends:
+  Moose: 0
 requires:
-  Class::MOP: 0
+  Any::Moose: 0.04
   Class::Trigger: 0
   Encode: 2.25
   Encode::JP::Mobile: 0.25
@@ -26,10 +31,11 @@ requires:
   HTML::DoCoMoCSS: 0
   HTML::Entities::ConvertPictogramMobileJp: 0
   HTML::StickyQuery::DoCoMoGUID: 0
-  Moose: 0.55
-  Moose::Role: 0
+  HTTP::Headers: 0
+  HTTP::MobileAgent: 0
+  Mouse: 0
   XML::LibXML: 0
   YAML: 0
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.01_03
+version: 0.02
